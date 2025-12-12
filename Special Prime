@@ -1,0 +1,58 @@
+import java.util.*;
+
+class solution{
+    int ans=-1;//Stores the final answer 
+    
+    public void binary_search(int low,int high){
+        if(low>high){
+            return;//base case:search space over
+        }
+        int mid=(low+high)/2;//mid point caluculation
+        
+        //check if mid is a special prime number
+        if(special_prime_number_check(String.valueOf(mid))){
+            ans=mid;//update ans
+        }
+        binary_search(low,mid-1);//search in left half
+        binary_search(mid+1,high);//search in right half
+    }
+    
+    //Check if every prefix is also a prime number
+    public boolean special_prime_number_check(String n){
+        String s1="";
+        for(int i=0;i<n.length();i++){
+            s1=s1+n.charAt(i);//build prefix
+            
+            if(!prime_check(Integer.parseInt(s1))){
+                return false;
+            }
+        }
+        return true;//all prefixes are prime
+    }
+    
+    //check if a number is prime 
+    public boolean prime_check(int n){
+        int count=0;
+        for(int i=1;i<=n;i++){
+            if(n%i==0){
+                count++;//count divisors
+            }
+        }
+        return count==2;//prime number have exactly 2 factors 1 and itself
+    }
+    public void print(){
+        System.out.println(ans);
+    }
+}
+class Main{
+  public static void main(String[] args){
+    solution ss=new solution();
+    Scanner sc=new Scanner(System.in);
+    int x=sc.nextInt();//input
+    ss.binary_search(0,x);//perform search
+    ss.print();
+
+  }
+    
+}
+                                                                                                                            
