@@ -1,0 +1,101 @@
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+public class Main {
+
+    
+    public static boolean isValidSudoku(char[][] board) {
+        int size = 4;
+
+        
+        for (int i = 0; i < size; i++) {
+            Set<Character> seenNumbers = new HashSet<>();
+            for (int j = 0; j < size; j++) {
+                char num = board[i][j];
+                if (num != '.') {
+                    if (seenNumbers.contains(num)) {
+                        
+                        return false;
+                    }
+                    seenNumbers.add(num);
+                }
+            }
+        }
+
+       
+        for (int j = 0; j < size; j++) {
+            Set<Character> seenNumbers = new HashSet<>();
+            for (int i = 0; i < size; i++) {
+                char num = board[i][j];
+                if (num != '.') {
+                    if (seenNumbers.contains(num)) {
+                        
+                        return false;
+                    }
+                    seenNumbers.add(num);
+                }
+            }
+        }
+
+        
+        for (int row = 0; row < size; row += 2) {
+            for (int col = 0; col < size; col += 2) {
+                Set<Character> seenNumbers = new HashSet<>();
+               
+                for (int i = row; i < row + 2; i++) {
+                    for (int j = col; j < col + 2; j++) {
+                        char num = board[i][j];
+                        if (num != '.') {
+                            if (seenNumbers.contains(num)) {
+                                
+                                return false;
+                            }
+                            seenNumbers.add(num);
+                        }
+                    }
+                }
+            }
+        }
+
+       
+        return true;
+    }
+
+   
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        try {
+           
+            int size = scanner.nextInt();
+            scanner.nextLine(); 
+
+            if (size != 4) {
+                System.out.println("Invalid board size.");
+                return;
+            }
+
+            char[][] board = new char[size][size];
+            for (int i = 0; i < size; i++) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" ");
+                for (int j = 0; j < size; j++) {
+                    board[i][j] = parts[j].charAt(0);
+                }
+            }
+
+           
+            if (isValidSudoku(board)) {
+                System.out.println("YES");
+            } else {
+                System.out.println("NO");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Invalid input format.");
+        } finally {
+            scanner.close();
+        }
+    }
+}
+                                                                                                                            
