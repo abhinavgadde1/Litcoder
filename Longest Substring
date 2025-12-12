@@ -1,0 +1,26 @@
+import java.util.Scanner;
+class Main{
+    //Finds the length of the longest substring without repeating characters
+    public static void longest_non_repeating_substring(String s){
+        int max=0;//Stores current length
+        int res=0;//stores final answer
+        String s1="";
+        for(int i=0;i<s.length();i++){
+            if(s1.contains(String.valueOf(s.charAt(i)))){//Checks if the current character is present
+                res=Math.max(res,s1.length());//Updating the max length
+                s1=""+s.charAt(i);//Starting of the new substring 
+            }
+            else{
+                s1=s1+s.charAt(i);//Character is not present so extend the substring
+            }
+        }
+        System.out.println(Math.max(res,s1.length()));
+    }
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String s=sc.next();//Read the string
+        longest_non_repeating_substring(s);//computes the longest non repeating substring
+        sc.close();
+    }
+}
+                                                                                                                            
