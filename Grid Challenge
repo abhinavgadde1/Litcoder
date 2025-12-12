@@ -1,0 +1,64 @@
+import java.util.*;  // Import utilities for Scanner, Arrays, etc.
+class Solution {
+    public void sortRows(String[][] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            Arrays.sort(arr[i]); // Sort each row alphabetically
+        }
+    }
+    public boolean isColumnSorted(String[][] arr) {
+        int rows = arr.length;
+        int cols = arr[0].length;
+
+        for (int c = 0; c < cols; c++) {
+            for (int r = 0; r < rows - 1; r++) {
+                // Compare adjacent strings lexicographically
+                if (arr[r][c].compareTo(arr[r + 1][c]) > 0) {
+                    return false; // Column not sorted
+                }
+            }
+        }
+        return true;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in); // Initialize scanner for input
+
+        try {
+            // Read number of test cases (not used in loop, but kept for input format consistency)
+            int t = sc.nextInt();
+
+            // Read dimensions
+            int rows = sc.nextInt();
+            int cols = sc.nextInt();
+
+            // Initialize 2D array
+            String[][] arr = new String[rows][cols];
+
+            // Input elements
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    arr[i][j] = sc.next();
+                }
+            }
+
+            // Create a Solution object
+            Solution sol = new Solution();
+
+            // Step 1: Sort each row
+            sol.sortRows(arr);
+
+            // Step 2: Check if all columns are sorted
+            boolean isSorted = sol.isColumnSorted(arr);
+
+            // Step 3: Print result
+            System.out.println(isSorted ? "YES" : "NO");
+
+        } catch (InputMismatchException e) {
+            System.out.println("⚠️ Invalid input! Please enter correct data types.");
+        } finally {
+            sc.close(); // Close scanner to prevent resource leak
+        }
+    }
+}
+                                                                                                                            
