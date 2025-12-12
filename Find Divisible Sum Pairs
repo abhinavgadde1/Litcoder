@@ -1,0 +1,29 @@
+import java.util.Scanner;
+class Main{
+    public static void main(String[] args){
+    int[] arr=new int[6];//The array of integers
+    Scanner sc=new Scanner(System.in);
+    
+    int n=sc.nextInt();//The divisor
+    
+    for(int i=0;i<6;i++){
+        arr[i]=sc.nextInt();//Taking input for the integer array. 
+    }
+    
+    int count=0;//Used for counting the number of pairs
+    
+    for(int i=0;i<6;i++){
+        for(int j=i+1;j<6;j++){
+            
+            if((arr[i]+arr[j])%n==0){
+                count++;//Increasing the count if the pair is found. 
+            }
+            
+        }
+    }
+    System.out.println(count);//Printing the number of pairs
+    sc.close();
+    
+    }
+}
+                                                                                                                            
