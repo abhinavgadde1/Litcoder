@@ -1,0 +1,37 @@
+import java.util.Scanner;
+class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        
+        int[] charlie=new int[3];//Charlie scores array
+        int[] dave=new int[3];//Dave scores array
+        
+        for(int i=0;i<3;i++){//Taking dev score inputs
+            charlie[i]=sc.nextInt();
+        }
+        
+        for(int i=0;i<3;i++){//Taking charlie score inputs
+            dave[i]=sc.nextInt();
+        }
+        
+        int c=0;//charlie score 
+        int d=0;//dave score
+        
+        for(int i=0;i<3;i++){
+            if(charlie[i]>dave[i]){
+                c++;
+            }
+            else if (dave[i]>charlie[i]){
+                d++;
+            }
+        }
+        
+        //Printing charlie and dave score
+        System.out.println(c+" "+d);
+        
+        //Closing the sc for security
+        sc.close();
+    
+    }
+}
+                                                                                                                            
