@@ -1,0 +1,38 @@
+import java.util.*;
+
+
+class Main{
+    public static void main(String[] args){
+        int[] id=new int[7];//Id array
+        
+        Scanner sc=new Scanner(System.in);
+        
+        for(int i=0;i<7;i++){
+            id[i]=sc.nextInt();//Input the id of each bird
+        }
+        
+        HashMap<Integer,Integer> map=new HashMap<>();
+        
+        for(int i=0;i<7;i++){
+            map.put(id[i],map.getOrDefault(id[i],0)+1);//if already there we increment or else we add new key value pair
+        }
+        int max=-1;//For finding what is the max occuring value
+        
+        for(Integer key:map.keySet()){
+            if(max<map.get(key)){
+                max=map.get(key);
+            }
+        }
+        ArrayList<Integer> arr=new ArrayList<>();//To store all the id occuring max times
+        
+        for(Integer key:map.keySet()){
+            if(map.get(key)==max){//Added if the number of times occured is equal to the max
+                arr.add(key);
+            }
+        }
+        Collections.sort(arr);//To get the smallest id 
+        System.out.println(arr.get(0));
+        
+    }
+}
+                                                                                                                            
