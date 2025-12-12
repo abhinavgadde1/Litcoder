@@ -1,0 +1,82 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        // Read the whole input line, commands separated by commas
+        // Example input: 1 abc,3 3,2 2,4
+        String line = sc.nextLine();
+        sc.close();
+
+        StringBuilder sb = new StringBuilder();
+        // Stack to store operations for undo. Each entry is String[] {opType, data}
+        // opType == "1" -> data is the inserted string
+        // opType == "2" -> data is the deleted substring
+        Stack<String[]> ops = new Stack<>();
+
+        String[] commands = line.split(",");
+        for (String rawCmd : commands) {
+            String cmd = rawCmd.trim();
+            if (cmd.isEmpty()) continue;
+
+            // get operation code (first token)
+            int firstSpace = cmd.indexOf(' ');
+            String opCode;
+            String arg = null;
+            if (firstSpace == -1) {
+                opCode = cmd; // e.g., "4"
+            } else {
+                opCode = cmd.substring(0, firstSpace);
+                arg = cmd.substring(firstSpace + 1); // might contain spaces
+            }
+
+            switch (opCode) {
+                case "1": // insert string
+                    if (arg == null) arg = "";
+                    sb.append(arg);
+                    ops.push(new String[] { "1", arg });
+                    break;
+
+                case "2": // delete k characters from end
+                    int k = Integer.parseInt(arg.trim());
+                    int start = Math.max(0, sb.length() - k);
+                    String deleted = sb.substring(start, sb.length());
+                    sb.delete(start, sb.length());
+                    ops.push(new String[] { "2", deleted });
+                    break;
+
+                case "3": // print k-th character (1-indexed)
+                    int kpos = Integer.parseInt(arg.trim());
+                    if (kpos >= 1 && kpos <= sb.length()) {
+                        System.out.println(sb.charAt(kpos - 1));
+                    } else {
+                        // out of bounds — print nothing or a message; here we print nothing
+                        System.out.println();
+                    }
+                    break;
+
+                case "4": // undo
+                    if (!ops.isEmpty()) {
+                        String[] last = ops.pop();
+                        if ("1".equals(last[0])) {
+                            // undo insert => remove last inserted string
+                            int len = last[1].length();
+                            int s = sb.length() - len;
+                            if (s < 0) s = 0;
+                            sb.delete(s, sb.length());
+                        } else if ("2".equals(last[0])) {
+                            // undo delete => append back deleted substring
+                            sb.append(last[1]);
+                        }
+                    }
+                    break;
+
+                default:
+                    // unknown command — ignore or handle error
+                    break;
+            }
+        }
+    }
+}
+                                                                                                                            
