@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+ class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (!sc.hasNextLong()) return;
+        long n = sc.nextLong();
+        if (!sc.hasNextLong()) return;
+        long m = sc.nextLong();
+        sc.close();
+
+        int winner = getWinner(n, m);
+        System.out.println(winner);
+    }
+    private static int getWinner(long n, long m) {
+        if (n == 1) return 1;
+        if (m == 1) return 1;
+        if (m % 2 == 0) return 2;
+        return (n % 2 == 1) ? 1 : 2;
+    }
+}
+                                                                                                                            
