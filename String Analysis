@@ -1,0 +1,34 @@
+import java.util.*;
+class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        String s=sc.nextLine();
+
+        int digits=0;
+        int upper=0;
+        int lower=0;
+        int other=0;
+        for(int i=0;i<s.length();i++){
+            int x=s.charAt(i);
+            if(x>=48 && x<=57){
+                digits++;
+            }
+            else if(x>=97 && x<=122){
+                lower++;
+            }
+            else if(x>=65 && x<=90){
+                upper++;
+            }
+            else{
+                other++;
+            }
+            
+        }
+        System.out.printf("%.3f%%\n",(upper*100.0)/s.length());
+        System.out.printf("%.3f%%\n",(lower*100.0)/s.length());
+        System.out.printf("%.3f%%\n",(digits*100.0)/s.length());
+        System.out.printf("%.3f%%\n",(other*100.0)/s.length());
+
+    }
+}
+                                                                                                                            
