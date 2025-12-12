@@ -1,0 +1,85 @@
+import java.util.*;
+class Main
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in); //scanner object to read operaitions
+        int noOfOperations = sc.nextInt();
+        Stack<String> stack1 = new Stack<>();
+        Stack<String> stack2 = new Stack<>();
+        
+        while(noOfOperations-->0)
+        {
+            String operation = sc.next();
+            String packageId = "-1";
+            
+            if(operation.equals("enqueue"))
+            {
+                packageId = sc.next();
+                sc.nextLine();
+            }
+            
+            switch(operation)
+            {
+                case "enqueue":
+                    if(Integer.parseInt(packageId) > 1000 || Integer.parseInt(packageId) <= 0)
+                    {
+                        System.out.println("Invalid Input");
+                    }
+                    else enqueue(stack1,stack2,packageId);
+                    break;
+                    
+                case "dequeue":
+                    System.out.println(dequeue(stack1));
+                    break;
+                case "peek":
+                    System.out.println(peek(stack1));
+                    break;
+                case "size":
+                    System.out.println(size(stack1));
+                    break;
+                default:
+                    System.out.println("Invalid input");
+            }
+        }
+    }
+    
+    private static void enqueue(Stack<String> stack1, Stack<String> stack2,String packId)
+    {
+        while(!stack1.isEmpty())
+        {
+            stack2.push(stack1.pop());
+        }
+        
+        stack1.push(packId);
+        
+        while(!stack2.isEmpty())
+        {
+            stack1.push(stack2.pop());
+        }
+    }
+    
+    private static String dequeue(Stack<String> stack1)
+    {
+        if(stack1.isEmpty())
+        {
+            return "Invalid Input";
+        }
+        else return stack1.pop();
+    }
+    
+    private static int size(Stack<String> stack1)
+    {
+        return stack1.size(); 
+    }
+    
+    private static String peek(Stack<String> stack1)
+    {
+        if(stack1.isEmpty())
+        {
+            return "Invalid Input";
+        }
+        else return stack1.peek();
+    }
+}
+                                                                                                                            
