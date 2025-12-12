@@ -1,0 +1,49 @@
+import java.util.*;
+public class Main{
+    static final long MOD=1000000007;
+    public static void main(String[]args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int m=sc.nextInt();
+        
+        long[] rowWays=new long[m+1];
+        rowWays[0]=1;
+        
+        for(int i=1;i<=m;i++){
+            rowWays[i]=rowWays[i-1];
+            if(i>=2) rowWays[i]=(rowWays[i]+rowWays[i-2])%MOD;
+            if(i>=3) rowWays[i]=(rowWays[i]+rowWays[i-3])%MOD;
+            if(i>=4) rowWays[i]=(rowWays[i]+rowWays[i-4])%MOD;
+        }
+        if(n==1){
+            System.out.println(rowWays[m]%MOD);
+            return;
+        }
+        long[]totalWays=new long[m+1];
+        for(int i=1;i<=m;i++){
+            totalWays[i]=modPow(rowWays[i],n,MOD);
+        }
+        long[]valid=new long[m+1];
+        valid[1]=totalWays[1];
+        
+        for(int width=2;width<=m;width++){
+            long bad=0;
+            
+            for(int k=1;k<width;k++){
+                bad=(bad+valid[k] * totalWays[width-k]) % MOD;
+            }
+            valid[width]=(totalWays[width]-bad+MOD)%MOD;
+        }
+        System.out.println(valid[m]);
+    }
+    static long modPow(long base,long exp,long mod){
+        long result=1;
+        while(exp>0){
+            if((exp&1)==1) result=(result*base)%mod;
+            base=(base*base)%mod;
+            exp>>=1;
+        }
+        return result;
+    }
+}
+                                                                                                                            
